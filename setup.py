@@ -32,7 +32,7 @@ def get_extensions():
     if (
         torch.cuda.is_available()
         and CUDA_HOME is not None
-        or os.environ.get("FORCE_CUDA", 0)
+        or int(os.environ.get("FORCE_CUDA", 0))
     ):
         extension = CUDAExtension
         sources += source_cuda
