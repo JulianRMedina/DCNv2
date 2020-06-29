@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import logging
 import os
 import glob
 
@@ -34,6 +34,7 @@ def get_extensions():
         and CUDA_HOME is not None
         or int(os.environ.get("FORCE_CUDA", 0))
     ):
+        logging.info("DCNv2 compiling with CUDA...")
         extension = CUDAExtension
         sources += source_cuda
         define_macros += [("WITH_CUDA", None)]
@@ -44,6 +45,7 @@ def get_extensions():
             "-D__CUDA_NO_HALF2_OPERATORS__",
         ]
     else:
+        logging.warning("DCNv2 compiling without CUDA...")
         # raise NotImplementedError('Cuda is not available')
         pass
 
@@ -65,7 +67,7 @@ setup(
     name="DCNv2",
     version="0.1",
     author="charlesshang",
-    url="https://github.com/charlesshang/DCNv2",
+    url="https://github.com/JulianRMedina/DCNv2",
     description="deformable convolutional networks",
     packages=find_packages(exclude=("configs", "tests")),
     # install_requires=requirements,
